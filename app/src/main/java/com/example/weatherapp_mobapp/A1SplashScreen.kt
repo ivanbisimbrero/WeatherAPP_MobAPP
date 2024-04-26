@@ -13,18 +13,15 @@ import com.google.android.gms.location.LocationServices
 import com.example.weatherapp_mobapp.databinding.ActivityA1SplashScreenBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
-import io.ktor.client.statement.readText
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class A1SplashScreen : AppCompatActivity() {
 
+
     private val view by lazy { ActivityA1SplashScreenBinding.inflate(layoutInflater) }
-    private val scope = CoroutineScope(Dispatchers.IO)
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -37,30 +34,40 @@ class A1SplashScreen : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         }
         // If given permissions, we retrieve the data from the API
+        val jobs = mutableListOf<Job>()
+        val scope = CoroutineScope(Dispatchers.IO)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location ->
                 println("Latitud: " + location.latitude)
                 println("Longitud: " + location.longitude)
 
+                val coordRequest: CityCoordinatesRequest = CityCoordinatesRequest(location.latitude, location.longitude)
+
                 scope.launch {
-                    //val weatherData = fetchWeather(location.latitude, location.longitude)
-
-                    //TODO: manage the returned data
-                    //println(weatherData)
-
-                    withContext(Dispatchers.Main) {
-                        startActivity(Intent(this@A1SplashScreen, A2MainActivity::class.java))
-                        finish()
-                    }
+                    val apiResponse = fetchWeather(coordRequest)
+                    DataUtils.fillCurrentCity(coordRequest, apiResponse)
                 }
+
             }
+
+        //Then, we add the default cities jobs
+        DataUtils.defaultRequests.forEach {defaultRequest ->
+            val job = scope.launch {
+                val apiResponse = fetchWeather(defaultRequest)
+                DataUtils.fillCities(defaultRequest, apiResponse)
+            }
+            jobs.add(job)
+        }
+
+        //We move the wait logic to one coroutine
+        scope.launch {
+            jobs.joinAll()
+            DataUtils.initUser()
+            withContext(Dispatchers.Main) {
+                startActivity(Intent(this@A1SplashScreen, A2MainActivity::class.java))
+                finish()
+            }
+        }
     }
 
-    private suspend fun fetchWeather(lat: Double, lon: Double): String {
-        val client = HttpClient()
-        val response: HttpResponse = client.get("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$lat,$lon?unitGroup=metric&key=LRH7D4ZHU7LAWANGZBRQXPPGU")
-        val responseText: String = response.bodyAsText()
-        client.close()
-        return responseText
-    }
 }
