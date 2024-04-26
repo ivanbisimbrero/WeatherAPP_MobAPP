@@ -1,5 +1,6 @@
 package com.example.weatherapp_mobapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -14,6 +15,7 @@ class A2MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
         setValues()
+        setButtonListeners()
     }
 
     private fun setValues() {
@@ -38,8 +40,19 @@ class A2MainActivity : AppCompatActivity() {
         for (i in 1..NEXT_DAYS_CHECK) {
             var auxDay = DataUtils.mainUser.currentCity.days[i]
             days[i-1].text = auxDay.datetime
-            minTemperatures[i-1].text = auxDay.tempmin.toString()
-            maxTemperatures[i-1].text = auxDay.tempmax.toString()
+            minTemperatures[i-1].text = auxDay.tempmin.toString() + "º"
+            maxTemperatures[i-1].text = auxDay.tempmax.toString() + "º"
+        }
+    }
+
+    private fun setButtonListeners() {
+        view.btnCititesList.setOnClickListener {
+            val intent = Intent(this, A4CitiesList::class.java)
+            startActivity(intent)
+        }
+        view.btnFavCitites.setOnClickListener {
+            val intent = Intent(this, A3FavouriteCitiesList::class.java)
+            startActivity(intent)
         }
     }
 }

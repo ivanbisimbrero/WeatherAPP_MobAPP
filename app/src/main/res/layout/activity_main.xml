@@ -10,9 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="@string/current_location"
             android:textAlignment="center"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -45,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="Zaragoza"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </TableRow>
@@ -60,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="13º"
                     android:textAlignment="center"
+                    android:textColor="#000000"
                     android:textSize="60sp" />
             </TableRow>
 
@@ -74,7 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Partially Coudly"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </TableRow>
 
             <TableRow
@@ -96,6 +101,7 @@
                         android:layout_weight="1"
                         android:text="@string/min"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
 
                     <TextView
@@ -114,6 +120,7 @@
                         android:layout_weight="1"
                         android:text="@string/max"
                         android:textAlignment="center"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
 
                     <TextView
@@ -149,8 +156,9 @@
                 android:id="@+id/tvDayPlusOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
+                android:layout_weight="0.9"
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/tvDayPlusOneMin"
@@ -159,6 +167,7 @@
                 android:layout_weight="1"
                 android:text="@string/min"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -175,6 +184,7 @@
                 android:layout_weight="1"
                 android:text="@string/max"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -195,8 +205,9 @@
                 android:id="@+id/tvDayPlusTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
+                android:layout_weight="0.9"
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/tvDayPlusTwoMin"
@@ -205,6 +216,7 @@
                 android:layout_weight="1"
                 android:text="@string/min"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -221,6 +233,7 @@
                 android:layout_weight="1"
                 android:text="@string/max"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -241,8 +254,9 @@
                 android:id="@+id/tvDayPlusThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
+                android:layout_weight="0.9"
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/tvDayPlusThreeMin"
@@ -251,6 +265,7 @@
                 android:layout_weight="1"
                 android:text="@string/min"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -267,6 +282,7 @@
                 android:layout_weight="1"
                 android:text="@string/max"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -287,8 +303,9 @@
                 android:id="@+id/tvDayPlusFour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center" />
+                android:layout_weight="0.9"
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/tvDayPlusFourMin"
@@ -297,6 +314,7 @@
                 android:layout_weight="1"
                 android:text="@string/min"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -313,6 +331,7 @@
                 android:layout_weight="1"
                 android:text="@string/max"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -334,6 +353,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/darker_gray"
                 android:text="List of Cities" />
 
             <Button
@@ -341,6 +361,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/darker_gray"
                 android:text="Favourite Cities" />
         </LinearLayout>
 
