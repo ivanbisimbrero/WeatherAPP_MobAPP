@@ -17,6 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.ConcurrentHashMap
 
 class A1SplashScreen : AppCompatActivity() {
 
@@ -34,19 +35,23 @@ class A1SplashScreen : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         }
         // If given permissions, we retrieve the data from the API
-        val jobs = mutableListOf<Job>()
+        val jobsMap = ConcurrentHashMap<WeatherRequest, Job>()
         val scope = CoroutineScope(Dispatchers.IO)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location ->
                 println("Latitud: " + location.latitude)
                 println("Longitud: " + location.longitude)
 
-                val coordRequest: CityCoordinatesRequest = CityCoordinatesRequest(location.latitude, location.longitude)
+                val coordRequest = CityCoordinatesRequest(location.latitude, location.longitude)
 
-                scope.launch {
+                val job = scope.launch {
                     val apiResponse = fetchWeather(coordRequest)
-                    DataUtils.fillCurrentCity(coordRequest, apiResponse)
+                    val cityName = coordRequest.getName()
+                    DataUtils.fillCurrentCity(apiResponse)
+                    DataUtils.setCurrentCityName(cityName)
+                //Preguntar a Juanjo, porque me crea una condicion de carrera
                 }
+                jobsMap[coordRequest] = job
 
             }
 
@@ -56,11 +61,12 @@ class A1SplashScreen : AppCompatActivity() {
                 val apiResponse = fetchWeather(defaultRequest)
                 DataUtils.fillCities(defaultRequest, apiResponse)
             }
-            jobs.add(job)
+            jobsMap[defaultRequest] = job
         }
 
         //We move the wait logic to one coroutine
         scope.launch {
+            val jobs = jobsMap.values.toMutableList()
             jobs.joinAll()
             DataUtils.initUser()
             withContext(Dispatchers.Main) {

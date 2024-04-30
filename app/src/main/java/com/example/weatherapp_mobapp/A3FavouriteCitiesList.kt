@@ -10,5 +10,7 @@ class A3FavouriteCitiesList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
+        val citiesUtils = CitiesListUtils(DataUtils.mainUser.cities)
+
     }
 }

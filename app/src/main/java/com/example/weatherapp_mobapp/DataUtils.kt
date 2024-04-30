@@ -9,7 +9,7 @@ import io.ktor.http.HttpStatusCode
 import java.util.concurrent.ConcurrentHashMap
 
 
-val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
+val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
 val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
 val USER_NAME = "ivanbisimbrero"
 val USER_EMAIL = "alu.135046@usj.es"
@@ -46,7 +46,8 @@ data class City (
     val latitude: Double,
     val longitude: Double,
     val resolvedAddress: String,
-    val days: List<Forecast>
+    val days: List<Forecast>,
+    var isFavouriteCity: Boolean
 )
 
 data class Forecast (
@@ -60,7 +61,7 @@ data class Forecast (
 
 interface WeatherRequest {
     fun getURL(): String
-    fun getName(): String
+    suspend fun getName(): String
 }
 
 data class CityCoordinatesRequest (
@@ -74,22 +75,21 @@ data class CityCoordinatesRequest (
         return "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${API_KEY}"
     }
 
-    override fun getName(): String {
+    override suspend fun getName(): String {
+
         /*
         val client = HttpClient()
         val response: HttpResponse = client.get(reverseApiUrl)
         if (response.status == HttpStatusCode.OK) {
             val responseText: String = response.bodyAsText()
             // Parse the data
-            val gson = Gson()
-            val apiResponse = gson.fromJson(responseText, ApiResponse::class.java)
-            val cityName = apiResponse.results[0].components._normalized_city
-            println("This is the city name: " + cityName)
-            return cityName
+            val apiResponse = Gson().fromJson(responseText, ApiResponse::class.java)
+            return apiResponse.results[0].components._normalized_city
         } else {
             return "A city"
         }
          */
+
         return "Your Location"
     }
 }
@@ -101,7 +101,7 @@ data class CityNameRequest (
         return "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${defaultCity.name},${defaultCity.region}?unitGroup=metric&key=${API_KEY}"
     }
 
-    override fun getName(): String {
+    override suspend fun getName(): String {
         return defaultCity.name
     }
 }
@@ -132,12 +132,16 @@ object DataUtils {
     lateinit var mainUser: User
     var citiesMap = ConcurrentHashMap<WeatherRequest, City>() //To avoid race conditions (Thanks teacher :))
 
-    fun fillCurrentCity(request: WeatherRequest, dataFromAPI: String) {
+    fun fillCurrentCity(dataFromAPI: String) {
         currentCity = parseWeatherData(dataFromAPI)
-        currentCity.name = request.getName()
+        currentCity.isFavouriteCity = false
     }
 
-    fun fillCities(request: WeatherRequest, dataFromAPI: String) {
+    fun setCurrentCityName(name: String) {
+        currentCity.name = name
+    }
+
+    suspend fun fillCities(request: WeatherRequest, dataFromAPI: String) {
         var auxCity: City = parseWeatherData(dataFromAPI)
         auxCity.name = request.getName()
         citiesMap[request] = auxCity
