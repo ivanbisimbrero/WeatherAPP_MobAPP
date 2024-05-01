@@ -21,21 +21,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/svSearchCity"
+            android:id="@+id/svSearchFavCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </SearchView>
 
         <RadioGroup
-            android:id="@+id/rbgFilters"
+            android:id="@+id/rbgFavFilters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center" >
 
             <RadioButton
-                android:id="@+id/rbTemperature"
+                android:id="@+id/rbFavTemperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -43,14 +43,14 @@
                 android:text="Temperature" />
 
             <RadioButton
-                android:id="@+id/rbRainProb"
+                android:id="@+id/rbFavRainProb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Precipitation" />
 
             <RadioButton
-                android:id="@+id/rbCondition"
+                android:id="@+id/rbFavCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -58,7 +58,7 @@
         </RadioGroup>
 
         <ListView
-            android:id="@+id/lvCities"
+            android:id="@+id/lvFavCities"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

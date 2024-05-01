@@ -9,7 +9,7 @@ class SearchUtils(private val cities: MutableList<City>) {
         return cities.filter { it.name.contains(searchName, ignoreCase = true) }
     }
 
-    fun getAllCities(): List<City> {
+    fun getAllCities(): MutableList<City> {
         return cities
     }
 

@@ -5,11 +5,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.HttpStatusCode
+import android.os.Parcelable
 import java.util.concurrent.ConcurrentHashMap
 
 
-val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
+val API_KEY = "EHKJT86LAKHXXMGHSGW5GFXG3" //Change if necessary
 val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
 val USER_NAME = "ivanbisimbrero"
 val USER_EMAIL = "alu.135046@usj.es"
@@ -39,8 +39,10 @@ data class User (
     val name: String,
     val email: String,
     val currentCity: City,
-    val cities: MutableList<City>
+    val cities: MutableList<City>,
+    var favCities: MutableList<City>
 )
+
 data class City (
     var name: String,
     val latitude: Double,
@@ -134,7 +136,6 @@ object DataUtils {
 
     fun fillCurrentCity(dataFromAPI: String) {
         currentCity = parseWeatherData(dataFromAPI)
-        currentCity.isFavouriteCity = false
     }
 
     fun setCurrentCityName(name: String) {
@@ -144,12 +145,13 @@ object DataUtils {
     suspend fun fillCities(request: WeatherRequest, dataFromAPI: String) {
         var auxCity: City = parseWeatherData(dataFromAPI)
         auxCity.name = request.getName()
+        auxCity.isFavouriteCity = false
         citiesMap[request] = auxCity
     }
 
     fun initUser() {
         cities = citiesMap.values.toMutableList()
-        mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities)
+        mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities, mutableListOf())
         println(mainUser.toString())
     }
 }
