@@ -21,59 +21,55 @@ import java.util.concurrent.ConcurrentHashMap
 
 class A1SplashScreen : AppCompatActivity() {
 
-
     private val view by lazy { ActivityA1SplashScreenBinding.inflate(layoutInflater) }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        setContentView(view.root);
+        super.onCreate(savedInstanceState)
+        setContentView(view.root)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
-            // If permissions not given, ask the user for it
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         }
-        // If given permissions, we retrieve the data from the API
-        val jobsMap = ConcurrentHashMap<WeatherRequest, Job>()
+
         val scope = CoroutineScope(Dispatchers.IO)
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location ->
-                println("Latitud: " + location.latitude)
-                println("Longitud: " + location.longitude)
+        val jobs = mutableListOf<Job>()
 
-                val coordRequest = CityCoordinatesRequest(location.latitude, location.longitude)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location ->
+            val coordRequest = CityCoordinatesRequest(location.latitude, location.longitude)
 
-                val job = scope.launch {
-                    val apiResponse = fetchWeather(coordRequest)
-                    val cityName = coordRequest.getName()
-                    DataUtils.fillCurrentCity(apiResponse)
-                    DataUtils.setCurrentCityName(cityName)
-                //Preguntar a Juanjo, porque me crea una condicion de carrera
+            val locationJob = scope.launch {
+                val apiResponse = fetchWeather(coordRequest)
+                val cityName = coordRequest.getName()
+                DataUtils.fillCurrentCity(apiResponse)
+                DataUtils.setCurrentCityName(cityName)
+
+                // Cargar ciudades predeterminadas
+                val defaultCityJobs = DataUtils.defaultRequests.map { defaultRequest ->
+                    launch {
+                        val response = fetchWeather(defaultRequest)
+                        DataUtils.fillCities(defaultRequest, response)
+                    }
                 }
-                jobsMap[coordRequest] = job
+                // Esperar que todas las ciudades predeterminadas se carguen
+                defaultCityJobs.joinAll()
 
-            }
+                // Inicializar usuario
+                DataUtils.initUser()
 
-        //Then, we add the default cities jobs
-        DataUtils.defaultRequests.forEach {defaultRequest ->
-            val job = scope.launch {
-                val apiResponse = fetchWeather(defaultRequest)
-                DataUtils.fillCities(defaultRequest, apiResponse)
+                // Proceder a la actividad principal
+                withContext(Dispatchers.Main) {
+                    startActivity(Intent(this@A1SplashScreen, A2MainActivity::class.java))
+                    finish()
+                }
             }
-            jobsMap[defaultRequest] = job
+            jobs.add(locationJob)
         }
 
-        //We move the wait logic to one coroutine
         scope.launch {
-            val jobs = jobsMap.values.toMutableList()
+            // Esperar a que la tarea de ubicación se complete
             jobs.joinAll()
-            DataUtils.initUser()
-            withContext(Dispatchers.Main) {
-                startActivity(Intent(this@A1SplashScreen, A2MainActivity::class.java))
-                finish()
-            }
         }
     }
-
 }

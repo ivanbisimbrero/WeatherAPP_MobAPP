@@ -6,6 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import android.os.Parcelable
+import io.ktor.http.HttpStatusCode
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -79,7 +80,7 @@ data class CityCoordinatesRequest (
 
     override suspend fun getName(): String {
 
-        /*
+
         val client = HttpClient()
         val response: HttpResponse = client.get(reverseApiUrl)
         if (response.status == HttpStatusCode.OK) {
@@ -90,9 +91,9 @@ data class CityCoordinatesRequest (
         } else {
             return "A city"
         }
-         */
 
-        return "Your Location"
+
+        //return "Your Location"
     }
 }
 
