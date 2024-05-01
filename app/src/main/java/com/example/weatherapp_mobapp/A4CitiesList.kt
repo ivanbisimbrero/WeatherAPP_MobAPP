@@ -10,6 +10,6 @@ class A4CitiesList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
-        val citiesUtils = CitiesListUtils(DataUtils.mainUser.cities)
+        val citiesUtils = SearchUtils(DataUtils.mainUser.cities)
     }
 }

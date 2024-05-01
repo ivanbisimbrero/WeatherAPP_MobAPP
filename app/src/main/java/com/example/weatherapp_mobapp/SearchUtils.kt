@@ -1,15 +1,15 @@
 package com.example.weatherapp_mobapp
 
-class CitiesListUtils(private val cities: List<City>) {
+class SearchUtils(private val cities: MutableList<City>) {
 
     fun searchCity(searchName: String): List<City> {
-        if(searchName.isEmpty()) {
+        if (searchName.isEmpty()) {
             return cities
         }
         return cities.filter { it.name.contains(searchName, ignoreCase = true) }
     }
 
-    fun getCities(): List<City> {
+    fun getAllCities(): List<City> {
         return cities
     }
 

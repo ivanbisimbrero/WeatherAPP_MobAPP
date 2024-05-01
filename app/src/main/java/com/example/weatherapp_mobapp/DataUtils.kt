@@ -9,15 +9,15 @@ import io.ktor.http.HttpStatusCode
 import java.util.concurrent.ConcurrentHashMap
 
 
-val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
+val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
 val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
 val USER_NAME = "ivanbisimbrero"
 val USER_EMAIL = "alu.135046@usj.es"
 
 
 enum class DefaultCities(val region: String) {
-    MADRID("ES"),
-    BARCELONA("ES")
+    Madrid("ES"),
+    Barcelona("ES")
     //TODO: Add more cities
 }
 
@@ -39,14 +39,14 @@ data class User (
     val name: String,
     val email: String,
     val currentCity: City,
-    val cities: List<City>
+    val cities: MutableList<City>
 )
 data class City (
     var name: String,
     val latitude: Double,
     val longitude: Double,
     val resolvedAddress: String,
-    val days: List<Forecast>,
+    val days: MutableList<Forecast>,
     var isFavouriteCity: Boolean
 )
 
@@ -123,8 +123,8 @@ private fun parseWeatherData(jsonResponse: String): City {
 
 object DataUtils {
     var defaultRequests: List<WeatherRequest> = listOf(
-        CityNameRequest(DefaultCities.MADRID),
-        CityNameRequest(DefaultCities.BARCELONA)
+        CityNameRequest(DefaultCities.Madrid),
+        CityNameRequest(DefaultCities.Barcelona)
     )
 
     lateinit var currentCity: City
