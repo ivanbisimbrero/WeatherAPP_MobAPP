@@ -12,7 +12,7 @@
 
     <include
         android:id="@+id/llFavCities"
-        layout="@layout/general_list"
+        layout="@layout/general_list_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
