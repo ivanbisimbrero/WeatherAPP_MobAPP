@@ -11,12 +11,12 @@ class A3FavouriteCitiesList : AppCompatActivity() {
 
     private val view by lazy { ActivityA3FavouriteCitiesListBinding.inflate(layoutInflater) }
     private var displayType = CityAdapter.TEMPERATURE
-    var favCitiesUtils = SearchUtils(getFavCities())
+    var favCitiesUtils = SearchUtils(DataUtils.mainUser.favCities)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
         updateCityAdapter(favCitiesUtils.getAllCities())
-        view.lvFavCities.setOnItemClickListener { _, _, position, _ ->
+        view.llFavCities.lvCities.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, A5CityDetail::class.java).apply {
                 // We give the selected city
                 putExtra("cityPosition", position)
@@ -25,7 +25,7 @@ class A3FavouriteCitiesList : AppCompatActivity() {
             }
             startActivity(intent)
         }
-        view.svSearchFavCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        view.llFavCities.svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
@@ -35,15 +35,15 @@ class A3FavouriteCitiesList : AppCompatActivity() {
                 return false
             }
         })
-        view.rbgFavFilters.setOnCheckedChangeListener { _ , checkedId ->
+        view.llFavCities.rbgFilters.setOnCheckedChangeListener { _ , checkedId ->
             when(checkedId) {
-                R.id.rbFavTemperature -> {
+                R.id.rbTemperature -> {
                     displayType = CityAdapter.TEMPERATURE
                 }
-                R.id.rbFavRainProb -> {
+                R.id.rbRainProb -> {
                     displayType = CityAdapter.RAIN_PROB
                 }
-                R.id.rbFavCondition -> {
+                R.id.rbCondition -> {
                     displayType = CityAdapter.CONDITION
                 }
             }
@@ -53,27 +53,13 @@ class A3FavouriteCitiesList : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        favCitiesUtils = SearchUtils(getFavCities())
+        favCitiesUtils = SearchUtils(DataUtils.mainUser.favCities)
         updateCityAdapter(favCitiesUtils.getAllCities())
     }
 
     private fun updateCityAdapter(cities: List<City>) {
-        val listView = findViewById<ListView>(R.id.lvFavCities)
+        val listView = findViewById<ListView>(R.id.lvCities)
         val adapter = CityAdapter(this, cities, displayType)
         listView.adapter = adapter
     }
-
-    private fun getFavCities() : MutableList<City> {
-        val allCities = DataUtils.mainUser.cities
-        val favCities = mutableListOf<City>()
-        allCities.forEach {
-            if(it.isFavouriteCity) {
-                println(it.name + "is favourite, adding")
-                favCities.add(it)
-            }
-        }
-        return favCities
-    }
-
-
 }

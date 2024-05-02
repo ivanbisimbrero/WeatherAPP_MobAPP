@@ -41,6 +41,7 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
                 DataUtils.mainUser.favCities.remove(city)
             }
             updateFavoriteButton(btnFavorite, city.isFavouriteCity!!)
+            notifyDataSetChanged()
         }
 
         updateFavoriteButton(btnFavorite, city!!.isFavouriteCity)

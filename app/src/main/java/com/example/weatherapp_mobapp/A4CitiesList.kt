@@ -20,7 +20,7 @@ class A4CitiesList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
         updateCityAdapter(citiesUtils.getAllCities())
-        view.lvCities.setOnItemClickListener { _, _, position, _ ->
+        view.llCitiesList.lvCities.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, A5CityDetail::class.java).apply {
                 // We give the selected city
                 putExtra("cityPosition", position)
@@ -29,7 +29,7 @@ class A4CitiesList : AppCompatActivity() {
             }
             startActivity(intent)
         }
-        view.svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        view.llCitiesList.svSearchCity.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
@@ -39,7 +39,7 @@ class A4CitiesList : AppCompatActivity() {
                 return false
             }
         })
-        view.rbgFilters.setOnCheckedChangeListener { _ , checkedId ->
+        view.llCitiesList.rbgFilters.setOnCheckedChangeListener { _ , checkedId ->
             when(checkedId) {
                 R.id.rbTemperature -> {
                     displayType = CityAdapter.TEMPERATURE
@@ -54,6 +54,11 @@ class A4CitiesList : AppCompatActivity() {
             updateCityAdapter(citiesUtils.getAllCities())
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateCityAdapter(citiesUtils.getAllCities())
     }
 
     private fun updateCityAdapter(cities: List<City>) {

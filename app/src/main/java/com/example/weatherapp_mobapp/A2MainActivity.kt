@@ -19,12 +19,12 @@ class A2MainActivity : AppCompatActivity() {
     }
 
     private fun setValues() {
-        view.tvCityName.text = DataUtils.mainUser.currentCity.name
+        view.tCurrentWeather.tvCityName.text = DataUtils.mainUser.currentCity.name
         var currentDay = DataUtils.mainUser.currentCity.days[0]
-        view.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
-        view.tvWeatherCondition.text = currentDay.conditions
-        view.tvMinValue.text = currentDay.tempmin.toString() + "º"
-        view.tvMaxValue.text = currentDay.tempmax.toString() + "º"
+        view.tCurrentWeather.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
+        view.tCurrentWeather.tvWeatherCondition.text = currentDay.conditions
+        view.tCurrentWeather.tvMinValue.text = currentDay.tempmin.toString() + "º"
+        view.tCurrentWeather.tvMaxValue.text = currentDay.tempmax.toString() + "º"
         setNextDaysValues()
     }
 

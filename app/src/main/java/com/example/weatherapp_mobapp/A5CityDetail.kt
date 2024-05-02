@@ -34,11 +34,11 @@ class A5CityDetail : AppCompatActivity() {
     }
 
     private fun setValues(city: City) {
-        view.tvCityName.text = city.name
+        view.tDetailWeather.tvCityName.text = city.name
         var currentDay = city.days[0]
-        view.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
-        view.tvWeatherCondition.text = currentDay.conditions
-        view.tvMinValue.text = currentDay.tempmin.toString() + "º"
-        view.tvMaxValue.text = currentDay.tempmax.toString() + "º"
+        view.tDetailWeather.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
+        view.tDetailWeather.tvWeatherCondition.text = currentDay.conditions
+        view.tDetailWeather.tvMinValue.text = currentDay.tempmin.toString() + "º"
+        view.tDetailWeather.tvMaxValue.text = currentDay.tempmax.toString() + "º"
     }
 }
