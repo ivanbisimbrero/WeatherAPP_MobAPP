@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 
 class CityAdapter(context: Context, private val cities: List<City>, private val displayType: String) : ArrayAdapter<City>(context, 0, cities) {
@@ -19,6 +20,7 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
 
         val cityName = view.findViewById<TextView>(R.id.tvItem)
         val cityInfo = view.findViewById<TextView>(R.id.tvSubItem)
+        val btnFavorite = view.findViewById<Button>(R.id.btnFavorite)
 
         val city = getItem(position)
 
@@ -30,8 +32,27 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
             else -> cityInfo.text = ""
         }
 
+        btnFavorite.setOnClickListener {
+            city?.isFavouriteCity = !city?.isFavouriteCity!!
+            if(city?.isFavouriteCity!!) {
+                DataUtils.mainUser.favCities.add(city)
+            }
+            else {
+                DataUtils.mainUser.favCities.remove(city)
+            }
+            updateFavoriteButton(btnFavorite, city.isFavouriteCity!!)
+        }
+
+        updateFavoriteButton(btnFavorite, city!!.isFavouriteCity)
+
         return view
     }
+
+    private fun updateFavoriteButton(btnFavorite: Button, isFavorite: Boolean) {
+        if (isFavorite) {
+            btnFavorite.text = "★"
+        } else {
+            btnFavorite.text = "☆"
+        }
+    }
 }
-
-

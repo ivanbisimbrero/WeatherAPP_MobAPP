@@ -10,7 +10,7 @@ import io.ktor.http.HttpStatusCode
 import java.util.concurrent.ConcurrentHashMap
 
 
-val API_KEY = "EHKJT86LAKHXXMGHSGW5GFXG3" //Change if necessary
+val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
 val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
 val USER_NAME = "ivanbisimbrero"
 val USER_EMAIL = "alu.135046@usj.es"
