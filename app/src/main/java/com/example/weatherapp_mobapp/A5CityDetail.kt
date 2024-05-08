@@ -14,11 +14,10 @@ class A5CityDetail : AppCompatActivity() {
         setContentView(view.root)
         val position = intent.getIntExtra("cityPosition", -1)
         val favListActivity = intent.getBooleanExtra("favListActivity", false)
-        var city: City
-        if(favListActivity) {
-            city = DataUtils.mainUser.favCities[position]
+        val city: City = if(favListActivity) {
+            DataUtils.mainUser.favCities[position]
         } else {
-            city = DataUtils.mainUser.cities[position]
+            DataUtils.mainUser.cities[position]
         }
         view.swchToggleFav.isChecked = city.isFavouriteCity
         view.swchToggleFav.setOnCheckedChangeListener { _, isChecked ->
@@ -35,7 +34,7 @@ class A5CityDetail : AppCompatActivity() {
 
     private fun setValues(city: City) {
         view.tDetailWeather.tvCityName.text = city.name
-        var currentDay = city.days[0]
+        val currentDay = city.days[0]
         view.tDetailWeather.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
         view.tDetailWeather.tvWeatherCondition.text = currentDay.conditions
         view.tDetailWeather.tvMinValue.text = currentDay.tempmin.toString() + "º"
