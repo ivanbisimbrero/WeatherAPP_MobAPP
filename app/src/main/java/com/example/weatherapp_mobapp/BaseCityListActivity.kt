@@ -7,13 +7,23 @@ import android.widget.ListView
 import android.widget.RadioGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
+import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
+import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
 
 abstract class BaseCityListActivity : AppCompatActivity() {
     abstract val cityUtils: SearchUtils
     abstract val isFavouriteList: Boolean
     private lateinit var listView: ListView
     private var displayType = CityAdapter.TEMPERATURE
-
+    private val repository: CrudAPI by lazy {
+        SharedPreferencesRepository(
+            application.getSharedPreferences(
+                SHARED_PREFERENCES_NAME,
+                MODE_PRIVATE
+            )
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(provideLayout())
@@ -59,7 +69,7 @@ abstract class BaseCityListActivity : AppCompatActivity() {
     }
 
     private fun updateCityAdapter(cities: List<City>) {
-        val adapter = CityAdapter(this, cities, displayType)
+        val adapter = CityAdapter(this, cities, displayType, repository)
         listView.adapter = adapter
     }
 

@@ -11,6 +11,9 @@ import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.example.weatherapp_mobapp.databinding.ActivityA1SplashScreenBinding
+import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
+import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
+import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,6 +26,14 @@ class A1SplashScreen : AppCompatActivity() {
 
     private val view by lazy { ActivityA1SplashScreenBinding.inflate(layoutInflater) }
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val repository: CrudAPI by lazy {
+        SharedPreferencesRepository(
+            application.getSharedPreferences(
+                SHARED_PREFERENCES_NAME,
+                MODE_PRIVATE
+            )
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
@@ -57,6 +68,9 @@ class A1SplashScreen : AppCompatActivity() {
 
                 // Inicializar usuario
                 DataUtils.initUser()
+
+                //Cargar ciudades favoritas
+                DataUtils.loadFavoriteCities(repository)
 
                 // Proceder a la actividad principal
                 withContext(Dispatchers.Main) {

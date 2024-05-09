@@ -1,11 +1,16 @@
 package com.example.weatherapp_mobapp
 
+import android.content.SharedPreferences
 import com.google.gson.Gson
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import android.os.Parcelable
+import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
+import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
+import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
 import io.ktor.http.HttpStatusCode
 import java.util.concurrent.ConcurrentHashMap
 
@@ -153,6 +158,21 @@ object DataUtils {
     fun initUser() {
         cities = citiesMap.values.toMutableList()
         mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities, mutableListOf())
+
         println(mainUser.toString())
     }
+
+    fun loadFavoriteCities(crudApi: CrudAPI) {
+        val favoriteCityNames = crudApi.list()
+        mainUser.favCities.clear()
+        mainUser.cities.forEach { city ->
+            if (favoriteCityNames.contains(city.name)) {
+                city.isFavouriteCity = true
+                mainUser.favCities.add(city)
+            } else {
+                city.isFavouriteCity = false
+            }
+        }
+    }
+
 }

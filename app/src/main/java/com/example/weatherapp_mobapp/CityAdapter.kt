@@ -1,6 +1,7 @@
 package com.example.weatherapp_mobapp
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 
-class CityAdapter(context: Context, private val cities: List<City>, private val displayType: String) : ArrayAdapter<City>(context, 0, cities) {
+class CityAdapter(context: Context, private val cities: List<City>, private val displayType: String,
+                  private val crudApi: CrudAPI
+) : ArrayAdapter<City>(context, 0, cities) {
 
     companion object {
         const val TEMPERATURE = "Temperature"
@@ -37,9 +41,11 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
             city?.isFavouriteCity = !city?.isFavouriteCity!!
             if(city?.isFavouriteCity!!) {
                 DataUtils.mainUser.favCities.add(city)
+                crudApi.save(city.name)
             }
             else {
                 DataUtils.mainUser.favCities.remove(city)
+                crudApi.delete(city.name)
             }
             updateFavoriteButton(btnFavorite, city.isFavouriteCity!!)
             notifyDataSetChanged()
