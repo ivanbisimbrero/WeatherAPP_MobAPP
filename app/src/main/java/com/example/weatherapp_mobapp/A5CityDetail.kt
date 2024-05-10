@@ -50,7 +50,7 @@ class A5CityDetail : AppCompatActivity() {
             }
             startActivity(intent)
         }
-        WeatherUtils.setTableValues(view.tDetailWeather, city)
+        WeatherUtils.setTableValues(view.tDetailWeather, city, this)
         WeatherUtils.setNextDaysValues(view.llDetailNextDays, city)
         WeatherUtils.setMoreDetailsValues(view.llDetailMoreInfo, city)
     }

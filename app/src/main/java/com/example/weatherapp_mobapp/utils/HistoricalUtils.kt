@@ -14,7 +14,7 @@ class HistoricalUtils(private val forecasts: List<Forecast>) {
     }
 
     fun countSunnyDays(): Int {
-        return forecasts.count { it.conditions.toLowerCase().contains("sunny") }
+        return forecasts.count { it.conditions.lowercase().contains("clear") }
     }
 
     fun maxWindSpeed(): Double {

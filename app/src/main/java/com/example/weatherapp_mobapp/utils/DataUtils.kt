@@ -52,10 +52,10 @@ class DataUtils {
             CityNameRequest(DefaultCities.RioDeJaneiro)
         )
 
-        lateinit var currentCity: City
-        lateinit var cities: MutableList<City>
+        private lateinit var currentCity: City
+        private lateinit var cities: MutableList<City>
         lateinit var mainUser: User
-        var citiesMap = ConcurrentHashMap<WeatherRequest, City>() //To avoid race conditions (Thanks teacher :))
+        private var citiesMap = ConcurrentHashMap<WeatherRequest, City>() //To avoid race conditions (Thanks teacher :))
 
         fun fillCurrentCity(dataFromAPI: String) {
             currentCity = parseWeatherData(dataFromAPI)

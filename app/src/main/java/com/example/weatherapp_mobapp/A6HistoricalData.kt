@@ -48,27 +48,27 @@ class A6HistoricalData : AppCompatActivity() {
         val entriesMin = historicalUtils.last15MinTemperatures()
         val entriesMax = historicalUtils.last15MaxTemperatures()
 
-        // Configurar el dataset y el gráfico para la temperatura mínima
+        // Configure the dataset for the minimum temperature
         val dataSetMin = LineDataSet(entriesMin, "Min Temperature")
         dataSetMin.color = Color.BLUE
-        dataSetMin.valueTextSize = 10f // Ajustar el tamaño del texto de las etiquetas de los valores
+        dataSetMin.valueTextSize = 10f // Adjust the size of the labels text
         dataSetMin.valueTypeface = boldTypeface
-        dataSetMin.setDrawValues(true) // Asegurarse de que los valores se dibujan en el gráfico
+        dataSetMin.setDrawValues(true) // Ensure that all values are drawn in the graphic
         val lineDataMin = LineData(dataSetMin)
         chartMinTemp.data = lineDataMin
         chartMinTemp.description.text = "Daily Minimum Temperatures"
 
-        // Configurar el dataset y el gráfico para la temperatura máxima
+        // Configure the dataset for the maximum temperature
         val dataSetMax = LineDataSet(entriesMax, "Max Temperature")
         dataSetMax.color = Color.RED
-        dataSetMax.valueTextSize = 10f // Ajustar el tamaño del texto de las etiquetas de los valores
+        dataSetMax.valueTextSize = 10f
         dataSetMax.valueTypeface = boldTypeface
-        dataSetMax.setDrawValues(true) // Asegurarse de que los valores se dibujan en el gráfico
+        dataSetMax.setDrawValues(true)
         val lineDataMax = LineData(dataSetMax)
         chartMaxTemp.data = lineDataMax
         chartMaxTemp.description.text = "Daily Maximum Temperatures"
 
-        // Refrescar los gráficos
+        // Refresh the graphics
         chartMinTemp.invalidate()
         chartMaxTemp.invalidate()
     }

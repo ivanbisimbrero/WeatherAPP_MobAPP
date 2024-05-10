@@ -14,7 +14,6 @@
             android:id="@+id/tvCityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zaragoza"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -30,10 +29,20 @@
             android:id="@+id/tvCurrentTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="13º"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="60sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/ivConditionIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
     </TableRow>
 
     <TableRow
@@ -46,7 +55,6 @@
             android:id="@+id/tvWeatherCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Partially Coudly"
             android:textAlignment="center"
             android:textColor="#000000" />
     </TableRow>
@@ -78,8 +86,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="6º"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
@@ -97,8 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="18º"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textStyle="bold" />
         </LinearLayout>
 

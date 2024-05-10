@@ -51,6 +51,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:2.3.10")
     implementation("io.ktor:ktor-client-cio:2.3.10")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

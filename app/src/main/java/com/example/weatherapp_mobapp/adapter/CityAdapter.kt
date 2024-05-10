@@ -32,8 +32,8 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
 
         cityName.text = city?.name
         when (displayType) {
-            TEMPERATURE -> cityInfo.text = city?.days?.get(0)?.temp.toString() + "º"
-            RAIN_PROB -> cityInfo.text = city?.days?.get(0)?.precipprob.toString() + "%"
+            TEMPERATURE -> cityInfo.text = city?.days?.get(0)?.temp.toString().plus("º")
+            RAIN_PROB -> cityInfo.text = city?.days?.get(0)?.precipprob.toString().plus("%")
             CONDITION -> cityInfo.text = city?.days?.get(0)?.conditions
             else -> cityInfo.text = ""
         }
@@ -48,7 +48,7 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
                 DataUtils.mainUser.favCities.remove(city)
                 crudApi.delete(city.name)
             }
-            updateFavoriteButton(btnFavorite, city.isFavouriteCity!!)
+            updateFavoriteButton(btnFavorite, city.isFavouriteCity)
             notifyDataSetChanged()
         }
 
@@ -59,9 +59,9 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
 
     private fun updateFavoriteButton(btnFavorite: ImageButton, isFavorite: Boolean) {
         if (isFavorite) {
-            btnFavorite.setImageResource(R.drawable.ic_star_filled)  // Ícono de estrella llena
+            btnFavorite.setImageResource(R.drawable.ic_star_filled)  // Filled star icon
         } else {
-            btnFavorite.setImageResource(R.drawable.ic_star_outline)  // Ícono de estrella vacía
+            btnFavorite.setImageResource(R.drawable.ic_star_outline)  // Clear star icon
         }
     }
 }

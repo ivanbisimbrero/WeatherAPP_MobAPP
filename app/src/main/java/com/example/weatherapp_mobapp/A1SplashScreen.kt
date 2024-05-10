@@ -59,26 +59,26 @@ class A1SplashScreen : AppCompatActivity() {
                 DataUtils.fillCurrentCity(apiResponse)
                 DataUtils.setCurrentCityName(cityName)
 
-                // Cargar ciudades predeterminadas
+                // Load default cities
                 val defaultCityJobs = DataUtils.defaultRequests.map { defaultRequest ->
                     launch {
                         val response = DataUtils.fetchWeather(defaultRequest)
                         DataUtils.fillCities(defaultRequest, response)
                     }
                 }
-                // Esperar que todas las ciudades predeterminadas se carguen
+                // Wait until all default cities are loaded
                 defaultCityJobs.joinAll()
 
-                // Inicializar usuario
+                // Initialise main user
                 DataUtils.initUser()
 
-                //Cargar ciudades favoritas
+                //Load Favourites cities
                 DataUtils.loadFavoriteCities(repository)
 
-                //Cargar en la base de datos las predicciones actual y futuras
+                //Load in the database actual and future predictions only
                 DataUtils.addUserForecastsToDatabase(dbHandler)
 
-                // Proceder a la actividad principal
+                // Proceed with the main activity
                 withContext(Dispatchers.Main) {
                     startActivity(Intent(this@A1SplashScreen, A2MainActivity::class.java))
                     finish()
@@ -88,7 +88,7 @@ class A1SplashScreen : AppCompatActivity() {
         }
 
         scope.launch {
-            // Esperar a que la tarea de ubicación se complete
+            // Wait until the location task is done
             jobs.joinAll()
         }
     }

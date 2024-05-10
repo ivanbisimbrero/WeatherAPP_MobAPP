@@ -15,7 +15,7 @@ class A2MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
-        WeatherUtils.setTableValues(view.tCurrentWeather, DataUtils.mainUser.currentCity)
+        WeatherUtils.setTableValues(view.tCurrentWeather, DataUtils.mainUser.currentCity, this)
         WeatherUtils.setNextDaysValues(view.llNextDays, DataUtils.mainUser.currentCity)
         WeatherUtils.setMoreDetailsValues(view.llMoreDetails, DataUtils.mainUser.currentCity)
         setButtonListeners()
