@@ -14,35 +14,10 @@ class A2MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
-        setValues()
+        WeatherUtils.setTableValues(view.tCurrentWeather, DataUtils.mainUser.currentCity)
+        WeatherUtils.setNextDaysValues(view.llNextDays, DataUtils.mainUser.currentCity)
+        WeatherUtils.setMoreDetailsValues(view.llMoreDetails, DataUtils.mainUser.currentCity)
         setButtonListeners()
-    }
-
-    private fun setValues() {
-        view.tCurrentWeather.tvCityName.text = DataUtils.mainUser.currentCity.name
-        var currentDay = DataUtils.mainUser.currentCity.days[0]
-        view.tCurrentWeather.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
-        view.tCurrentWeather.tvWeatherCondition.text = currentDay.conditions
-        view.tCurrentWeather.tvMinValue.text = currentDay.tempmin.toString() + "º"
-        view.tCurrentWeather.tvMaxValue.text = currentDay.tempmax.toString() + "º"
-        setNextDaysValues()
-    }
-
-    private fun setNextDaysValues() {
-
-        var days = mutableListOf(view.tvDayPlusOne, view.tvDayPlusTwo, view.tvDayPlusThree,
-            view.tvDayPlusFour)
-        var minTemperatures = mutableListOf(view.tvDayPlusOneMinValue, view.tvDayPlusTwoMinValue,
-            view.tvDayPlusThreeMinValue, view.tvDayPlusFourMinValue)
-        var maxTemperatures = mutableListOf(view.tvDayPlusOneMaxValue, view.tvDayPlusTwoMaxValue,
-            view.tvDayPlusThreeMaxValue, view.tvDayPlusFourMaxValue)
-
-        for (i in 1..NEXT_DAYS_CHECK) {
-            var auxDay = DataUtils.mainUser.currentCity.days[i]
-            days[i-1].text = auxDay.datetime
-            minTemperatures[i-1].text = auxDay.tempmin.toString() + "º"
-            maxTemperatures[i-1].text = auxDay.tempmax.toString() + "º"
-        }
     }
 
     private fun setButtonListeners() {

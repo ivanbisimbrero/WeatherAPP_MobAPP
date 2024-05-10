@@ -42,15 +42,8 @@ class A5CityDetail : AppCompatActivity() {
                 repository.delete(city.name)
             }
         }
-        setValues(city)
-    }
-
-    private fun setValues(city: City) {
-        view.tDetailWeather.tvCityName.text = city.name
-        val currentDay = city.days[0]
-        view.tDetailWeather.tvCurrentTemperature.text = currentDay.temp.toString() + "º"
-        view.tDetailWeather.tvWeatherCondition.text = currentDay.conditions
-        view.tDetailWeather.tvMinValue.text = currentDay.tempmin.toString() + "º"
-        view.tDetailWeather.tvMaxValue.text = currentDay.tempmax.toString() + "º"
+        WeatherUtils.setTableValues(view.tDetailWeather, city)
+        WeatherUtils.setNextDaysValues(view.llDetailNextDays, city)
+        WeatherUtils.setMoreDetailsValues(view.llDetailMoreInfo, city)
     }
 }
