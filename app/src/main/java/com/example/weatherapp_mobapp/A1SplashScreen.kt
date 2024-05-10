@@ -14,6 +14,7 @@ import com.example.weatherapp_mobapp.databinding.ActivityA1SplashScreenBinding
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
 import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
+import com.example.weatherapp_mobapp.weatherdb.DatabaseHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,6 +35,7 @@ class A1SplashScreen : AppCompatActivity() {
             )
         )
     }
+    private var dbHandler : DatabaseHelper = DatabaseHelper(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
@@ -71,6 +73,9 @@ class A1SplashScreen : AppCompatActivity() {
 
                 //Cargar ciudades favoritas
                 DataUtils.loadFavoriteCities(repository)
+
+                //Cargar en la base de datos las predicciones actual y futuras
+                DataUtils.addUserForecastsToDatabase(dbHandler)
 
                 // Proceder a la actividad principal
                 withContext(Dispatchers.Main) {

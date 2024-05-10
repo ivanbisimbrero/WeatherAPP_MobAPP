@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
 import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
+import com.example.weatherapp_mobapp.weatherdb.DatabaseHelper
 import io.ktor.http.HttpStatusCode
+import java.time.LocalDate
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -63,8 +65,12 @@ data class Forecast (
     val tempmax: Double,
     val tempmin: Double,
     val temp: Double,
+    val feelslike: Double,
+    val humidity: Double,
     val precipprob: Double,
+    val windspeed: Double,
     val conditions: String,
+    val icon: String
 )
 
 interface WeatherRequest {
@@ -175,4 +181,16 @@ object DataUtils {
         }
     }
 
+    fun addUserForecastsToDatabase(dbHandler: DatabaseHelper) {
+        mainUser.cities.forEach { city ->
+            addFutureForecasts(city.days, city.name, dbHandler)
+        }
+    }
+    private fun addFutureForecasts(forecasts: List<Forecast>, cityName: String, dbHandler: DatabaseHelper) {
+        val currentDate = LocalDate.now()
+        val futureForecasts = forecasts.filter { LocalDate.parse(it.datetime) >= currentDate }
+        futureForecasts.forEach {
+            dbHandler.addOrUpdateForecast(it, cityName)
+        }
+    }
 }

@@ -5,10 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.weatherapp_mobapp.databinding.ActivityA5CityDetailBinding
+import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
+import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
+import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
 
 class A5CityDetail : AppCompatActivity() {
 
     private val view by lazy { ActivityA5CityDetailBinding.inflate(layoutInflater) }
+    private val repository: CrudAPI by lazy {
+        SharedPreferencesRepository(
+            application.getSharedPreferences(
+                SHARED_PREFERENCES_NAME,
+                MODE_PRIVATE
+            )
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
@@ -24,9 +35,11 @@ class A5CityDetail : AppCompatActivity() {
             if (isChecked) {
                 city.isFavouriteCity = true
                 DataUtils.mainUser.favCities.add(city)
+                repository.save(city.name)
             } else {
                 city.isFavouriteCity = false
                 DataUtils.mainUser.favCities.remove(city)
+                repository.delete(city.name)
             }
         }
         setValues(city)
