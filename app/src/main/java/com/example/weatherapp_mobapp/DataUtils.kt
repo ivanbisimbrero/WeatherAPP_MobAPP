@@ -17,7 +17,7 @@ import java.time.LocalDate
 import java.util.concurrent.ConcurrentHashMap
 
 
-val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
+val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
 val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
 val USER_NAME = "ivanbisimbrero"
 val USER_EMAIL = "alu.135046@usj.es"
@@ -25,9 +25,17 @@ val USER_EMAIL = "alu.135046@usj.es"
 
 enum class DefaultCities(val region: String) {
     Madrid("ES"),
-    Barcelona("ES")
-    //TODO: Add more cities
+    Barcelona("ES"),
+    Zaragoza("ES"),
+    Bucharest("RO"),
+    NewYork("US"),
+    Paris("FR"),
+    Berlin("DE"),
+    Tokyo("JP"),
+    Sydney("AU"),
+    RioDeJaneiro("BR")
 }
+
 
 //These classes are the classes for the reverse geocoding with Gson
 data class ApiResponse(
@@ -138,7 +146,15 @@ private fun parseWeatherData(jsonResponse: String): City {
 object DataUtils {
     var defaultRequests: List<WeatherRequest> = listOf(
         CityNameRequest(DefaultCities.Madrid),
-        CityNameRequest(DefaultCities.Barcelona)
+        CityNameRequest(DefaultCities.Barcelona),
+        CityNameRequest(DefaultCities.Zaragoza),
+        CityNameRequest(DefaultCities.Bucharest),
+        CityNameRequest(DefaultCities.Paris),
+        CityNameRequest(DefaultCities.NewYork),
+        CityNameRequest(DefaultCities.Berlin),
+        CityNameRequest(DefaultCities.Tokyo),
+        CityNameRequest(DefaultCities.Sydney),
+        CityNameRequest(DefaultCities.RioDeJaneiro)
     )
 
     lateinit var currentCity: City
@@ -164,7 +180,6 @@ object DataUtils {
     fun initUser() {
         cities = citiesMap.values.toMutableList()
         mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities, mutableListOf())
-
         println(mainUser.toString())
     }
 

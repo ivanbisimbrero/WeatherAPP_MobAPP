@@ -42,6 +42,12 @@ class A5CityDetail : AppCompatActivity() {
                 repository.delete(city.name)
             }
         }
+        view.btnHistoricalData.setOnClickListener {
+            val intent = Intent(this, A6HistoricalData::class.java).apply {
+                putExtra("cityName", city.name)
+            }
+            startActivity(intent)
+        }
         WeatherUtils.setTableValues(view.tDetailWeather, city)
         WeatherUtils.setNextDaysValues(view.llDetailNextDays, city)
         WeatherUtils.setMoreDetailsValues(view.llDetailMoreInfo, city)

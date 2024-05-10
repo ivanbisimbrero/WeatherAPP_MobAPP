@@ -81,7 +81,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun getAllCityForecasts(cityName: String) : List<Forecast> {
         val forecastList = ArrayList<Forecast>()
-        val selectQuery = "SELECT * FROM $TABLE_FORECASTS WHERE $KEY_CITY = $cityName"
+        val selectQuery = "SELECT * FROM $TABLE_FORECASTS WHERE $KEY_CITY = '$cityName'"
         val db = this.readableDatabase
         val cursor = db.rawQuery(selectQuery, null)
         if (cursor.moveToFirst()) {
