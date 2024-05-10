@@ -3,8 +3,9 @@ package com.example.weatherapp_mobapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import com.example.weatherapp_mobapp.databinding.ActivityMainBinding
+import com.example.weatherapp_mobapp.utils.DataUtils
+import com.example.weatherapp_mobapp.utils.WeatherUtils
 
 class A2MainActivity : AppCompatActivity() {
 

@@ -5,9 +5,9 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.weatherapp_mobapp.databinding.ActivityA6HistoricalDataBinding
+import com.example.weatherapp_mobapp.utils.HistoricalUtils
 import com.example.weatherapp_mobapp.weatherdb.DatabaseHelper
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 

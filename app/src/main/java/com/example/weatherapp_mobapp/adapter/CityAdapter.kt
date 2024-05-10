@@ -1,15 +1,16 @@
-package com.example.weatherapp_mobapp
+package com.example.weatherapp_mobapp.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.example.weatherapp_mobapp.R
+import com.example.weatherapp_mobapp.model.City
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
+import com.example.weatherapp_mobapp.utils.DataUtils
 
 class CityAdapter(context: Context, private val cities: List<City>, private val displayType: String,
                   private val crudApi: CrudAPI

@@ -11,9 +11,11 @@ import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.example.weatherapp_mobapp.databinding.ActivityA1SplashScreenBinding
+import com.example.weatherapp_mobapp.requestCity.CityCoordinatesRequest
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
 import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
+import com.example.weatherapp_mobapp.utils.DataUtils
 import com.example.weatherapp_mobapp.weatherdb.DatabaseHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +23,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 
 class A1SplashScreen : AppCompatActivity() {
 
@@ -53,7 +54,7 @@ class A1SplashScreen : AppCompatActivity() {
             val coordRequest = CityCoordinatesRequest(location.latitude, location.longitude)
 
             val locationJob = scope.launch {
-                val apiResponse = fetchWeather(coordRequest)
+                val apiResponse = DataUtils.fetchWeather(coordRequest)
                 val cityName = coordRequest.getName()
                 DataUtils.fillCurrentCity(apiResponse)
                 DataUtils.setCurrentCityName(cityName)
@@ -61,7 +62,7 @@ class A1SplashScreen : AppCompatActivity() {
                 // Cargar ciudades predeterminadas
                 val defaultCityJobs = DataUtils.defaultRequests.map { defaultRequest ->
                     launch {
-                        val response = fetchWeather(defaultRequest)
+                        val response = DataUtils.fetchWeather(defaultRequest)
                         DataUtils.fillCities(defaultRequest, response)
                     }
                 }

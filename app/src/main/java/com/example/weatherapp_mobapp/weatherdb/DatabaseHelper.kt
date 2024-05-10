@@ -1,11 +1,10 @@
 package com.example.weatherapp_mobapp.weatherdb
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.weatherapp_mobapp.Forecast
+import com.example.weatherapp_mobapp.model.Forecast
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {

@@ -3,11 +3,13 @@ package com.example.weatherapp_mobapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.weatherapp_mobapp.databinding.ActivityA5CityDetailBinding
+import com.example.weatherapp_mobapp.model.City
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
 import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
+import com.example.weatherapp_mobapp.utils.DataUtils
+import com.example.weatherapp_mobapp.utils.WeatherUtils
 
 class A5CityDetail : AppCompatActivity() {
 

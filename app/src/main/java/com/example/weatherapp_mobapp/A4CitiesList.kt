@@ -2,6 +2,8 @@ package com.example.weatherapp_mobapp
 
 import android.view.View
 import com.example.weatherapp_mobapp.databinding.ActivityA4CitiesListBinding
+import com.example.weatherapp_mobapp.utils.DataUtils
+import com.example.weatherapp_mobapp.utils.SearchUtils
 
 class A4CitiesList : BaseCityListActivity() {
 

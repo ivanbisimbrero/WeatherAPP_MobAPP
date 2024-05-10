@@ -1,5 +1,6 @@
-package com.example.weatherapp_mobapp
+package com.example.weatherapp_mobapp.utils
 
+import com.example.weatherapp_mobapp.model.Forecast
 import com.github.mikephil.charting.data.Entry
 
 class HistoricalUtils(private val forecasts: List<Forecast>) {

@@ -7,9 +7,12 @@ import android.widget.ListView
 import android.widget.RadioGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherapp_mobapp.adapter.CityAdapter
+import com.example.weatherapp_mobapp.model.City
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.sharedPreferences.SHARED_PREFERENCES_NAME
 import com.example.weatherapp_mobapp.sharedPreferences.SharedPreferencesRepository
+import com.example.weatherapp_mobapp.utils.SearchUtils
 
 abstract class BaseCityListActivity : AppCompatActivity() {
     abstract val cityUtils: SearchUtils

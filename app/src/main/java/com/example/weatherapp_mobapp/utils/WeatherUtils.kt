@@ -1,8 +1,9 @@
-package com.example.weatherapp_mobapp
+package com.example.weatherapp_mobapp.utils
 
 import com.example.weatherapp_mobapp.databinding.GeneralNextDaysBinding
 import com.example.weatherapp_mobapp.databinding.GeneralTimeDetailTableBinding
 import com.example.weatherapp_mobapp.databinding.MoreDetailsTableBinding
+import com.example.weatherapp_mobapp.model.City
 
 class WeatherUtils {
     companion object {

@@ -1,4 +1,6 @@
-package com.example.weatherapp_mobapp
+package com.example.weatherapp_mobapp.utils
+
+import com.example.weatherapp_mobapp.model.City
 
 class SearchUtils(private val cities: MutableList<City>) {
 
