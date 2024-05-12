@@ -25,13 +25,8 @@ class A5CityDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(view.root)
-        val position = intent.getIntExtra("cityPosition", -1)
-        val favListActivity = intent.getBooleanExtra("favListActivity", false)
-        val city: City = if(favListActivity) {
-            DataUtils.mainUser.favCities[position]
-        } else {
-            DataUtils.mainUser.cities[position]
-        }
+        val name = intent.getStringExtra("cityName")
+        val city: City = DataUtils.mainUser.cities.find { it.name == name }!!
         view.swchToggleFav.isChecked = city.isFavouriteCity
         view.swchToggleFav.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

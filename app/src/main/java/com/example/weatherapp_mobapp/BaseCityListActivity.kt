@@ -16,7 +16,6 @@ import com.example.weatherapp_mobapp.utils.SearchUtils
 
 abstract class BaseCityListActivity : AppCompatActivity() {
     abstract val cityUtils: SearchUtils
-    abstract val isFavouriteList: Boolean
     private lateinit var listView: ListView
     private var displayType = CityAdapter.TEMPERATURE
     private val repository: CrudAPI by lazy {
@@ -32,7 +31,7 @@ abstract class BaseCityListActivity : AppCompatActivity() {
         setContentView(provideLayout())
 
         listView = findViewById(provideListViewId())
-        updateCityAdapter(cityUtils.getAllCities())
+        updateCityAdapter(cityUtils.getCities())
 
         findViewById<SearchView>(provideSearchViewId()).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean = false
@@ -54,13 +53,12 @@ abstract class BaseCityListActivity : AppCompatActivity() {
                     displayType = CityAdapter.CONDITION
                 }
             }
-            updateCityAdapter(cityUtils.getAllCities())
+            updateCityAdapter(cityUtils.getCities())
         }
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, A5CityDetail::class.java).apply {
-                putExtra("cityPosition", position)
-                putExtra("favListActivity", isFavouriteList)
+                putExtra("cityName", cityUtils.getCities()[position].name)
             }
             startActivity(intent)
         }
@@ -68,7 +66,8 @@ abstract class BaseCityListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateCityAdapter(cityUtils.getAllCities())
+        findViewById<SearchView>(provideSearchViewId()).setQuery("", false)
+        updateCityAdapter(cityUtils.getCities())
     }
 
     private fun updateCityAdapter(cities: List<City>) {

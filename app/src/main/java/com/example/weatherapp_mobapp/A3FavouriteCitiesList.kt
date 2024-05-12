@@ -9,7 +9,6 @@ class A3FavouriteCitiesList : BaseCityListActivity() {
 
     private val view by lazy { ActivityA3FavouriteCitiesListBinding.inflate(layoutInflater) }
     override val cityUtils = SearchUtils(DataUtils.mainUser.favCities)
-    override val isFavouriteList = true
 
     override fun provideLayout(): View = view.root
     override fun provideListViewId(): Int = R.id.lvCities

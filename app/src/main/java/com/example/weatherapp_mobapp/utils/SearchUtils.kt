@@ -4,15 +4,19 @@ import com.example.weatherapp_mobapp.model.City
 
 class SearchUtils(private val cities: MutableList<City>) {
 
+    private var currentCitiesList = cities
+
     fun searchCity(searchName: String): List<City> {
         if (searchName.isEmpty()) {
-            return cities
+            currentCitiesList = cities
+            return currentCitiesList
         }
-        return cities.filter { it.name.contains(searchName, ignoreCase = true) }
+        currentCitiesList = cities.filter { it.name.contains(searchName, ignoreCase = true) }.toMutableList()
+        return currentCitiesList
     }
 
-    fun getAllCities(): MutableList<City> {
-        return cities
+    fun getCities(): MutableList<City> {
+        return currentCitiesList
     }
 
 }

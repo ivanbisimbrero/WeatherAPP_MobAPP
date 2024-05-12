@@ -11,6 +11,17 @@ class CityNameRequest (
     }
 
     override suspend fun getName(): String {
-        return defaultCity.name
+        val result = StringBuilder()
+        var prevChar: Char? = null
+
+        for (char in defaultCity.name) {
+            if (prevChar != null && char.isUpperCase()) {
+                result.append(' ')
+            }
+            result.append(char)
+            prevChar = char
+        }
+
+        return result.toString()
     }
 }
