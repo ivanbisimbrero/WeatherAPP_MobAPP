@@ -12,7 +12,7 @@ import com.example.weatherapp_mobapp.model.City
 import com.example.weatherapp_mobapp.sharedPreferences.CrudAPI
 import com.example.weatherapp_mobapp.utils.DataUtils
 
-class CityAdapter(context: Context, private val cities: List<City>, private val displayType: String,
+class CityAdapter(context: Context, cities: List<City>, private val displayType: String,
                   private val crudApi: CrudAPI
 ) : ArrayAdapter<City>(context, 0, cities) {
 
@@ -40,7 +40,7 @@ class CityAdapter(context: Context, private val cities: List<City>, private val 
 
         btnFavorite.setOnClickListener {
             city?.isFavouriteCity = !city?.isFavouriteCity!!
-            if(city?.isFavouriteCity!!) {
+            if(city.isFavouriteCity) {
                 DataUtils.mainUser.favCities.add(city)
                 crudApi.save(city.name)
             }
