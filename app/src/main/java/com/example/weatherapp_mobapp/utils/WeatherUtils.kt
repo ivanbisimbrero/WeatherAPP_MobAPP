@@ -55,11 +55,15 @@ class WeatherUtils {
         fun setNextHoursValues(listNextHoursWeatherBinding: ListNextHoursWeatherBinding, city: City,
         context: Context) {
             val next24Hours = getNext24Hours(city)
+            //Change the icon on the first hour to be the same that in the current forecast
+            next24Hours[0].icon = city.days[0].icon
+            //We change to the temperature, to be consistent in our predictions
+            next24Hours[0].temp = city.days[0].temp
             println(next24Hours)
+            println()
             listNextHoursWeatherBinding.rvHourlyForecast.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             val adapter = HourAdapter(next24Hours, context)
             listNextHoursWeatherBinding.rvHourlyForecast.adapter = adapter
-            adapter.notifyDataSetChanged()
         }
 
         private fun getNext24Hours(city: City): List<Hour> {
