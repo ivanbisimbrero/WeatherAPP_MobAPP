@@ -48,5 +48,12 @@ class A5CityDetail : AppCompatActivity() {
         WeatherUtils.setTableValues(view.tDetailWeather, city, this)
         WeatherUtils.setNextDaysValues(view.llDetailNextDays, city)
         WeatherUtils.setMoreDetailsValues(view.llDetailMoreInfo, city)
+        WeatherUtils.setNextHoursValues(view.rvDetailNext24Hours, city, this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //For example if the hour changes (before: 12, after: 13), the adapter is updated
+        WeatherUtils.setNextHoursValues(view.rvDetailNext24Hours, DataUtils.mainUser.currentCity, this)
     }
 }
