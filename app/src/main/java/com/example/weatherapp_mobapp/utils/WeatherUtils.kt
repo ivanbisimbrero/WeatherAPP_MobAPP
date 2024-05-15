@@ -11,7 +11,6 @@ import com.example.weatherapp_mobapp.adapter.HourAdapter
 import com.example.weatherapp_mobapp.databinding.ListNextHoursWeatherBinding
 import com.example.weatherapp_mobapp.model.Hour
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class WeatherUtils {
     companion object {
