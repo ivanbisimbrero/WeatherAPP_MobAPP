@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap
 class DataUtils {
     companion object {
 
-        const val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
+        const val API_KEY = "LRH7D4ZHU7LAWANGZBRQXPPGU" //Change if necessary
         const val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
         private const val USER_NAME = "ivanbisimbrero"
         private const val USER_EMAIL = "alu.135046@usj.es"
@@ -75,6 +75,7 @@ class DataUtils {
         fun initUser() {
             cities = citiesMap.values.toMutableList()
             mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities, mutableListOf())
+            println(mainUser)
         }
 
         fun loadFavoriteCities(crudApi: CrudAPI) {
