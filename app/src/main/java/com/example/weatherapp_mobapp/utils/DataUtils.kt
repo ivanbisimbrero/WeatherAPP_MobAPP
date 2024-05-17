@@ -75,7 +75,6 @@ class DataUtils {
         fun initUser() {
             cities = citiesMap.values.toMutableList()
             mainUser = User(USER_NAME, USER_EMAIL, currentCity, cities, mutableListOf())
-            println(mainUser.toString())
         }
 
         fun loadFavoriteCities(crudApi: CrudAPI) {
