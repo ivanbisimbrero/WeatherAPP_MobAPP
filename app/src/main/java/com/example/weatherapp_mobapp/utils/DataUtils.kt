@@ -19,10 +19,10 @@ import java.util.concurrent.ConcurrentHashMap
 class DataUtils {
     companion object {
 
-        val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
-        val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
-        val USER_NAME = "ivanbisimbrero"
-        val USER_EMAIL = "alu.135046@usj.es"
+        const val API_KEY = "R4JYEMDZSGHXLPQH5RYUAG4BG" //Change if necessary
+        const val REVERSE_API_KEY = "73ae2d27d6034e278eaae0007c703f28"
+        private const val USER_NAME = "ivanbisimbrero"
+        private const val USER_EMAIL = "alu.135046@usj.es"
 
         suspend fun fetchWeather(request: WeatherRequest): String {
             val client = HttpClient()
